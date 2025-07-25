@@ -1,0 +1,213 @@
+-- AIConnect Database Schema
+-- MongoDB equivalent collections structure for reference
+
+-- Users Collection
+-- {
+--   _id: ObjectId,
+--   firstName: String,
+--   lastName: String,
+--   email: String (unique),
+--   password: String (hashed),
+--   role: String (enum: 'student', 'professional', 'researcher', 'entrepreneur', 'admin'),
+--   institution: String,
+--   bio: String,
+--   skills: [String],
+--   avatar: String,
+--   isVerified: Boolean,
+--   isActive: Boolean,
+--   joinedAt: Date,
+--   lastActive: Date,
+--   profile: {
+--     linkedin: String,
+--     github: String,
+--     website: String,
+--     location: String
+--   },
+--   preferences: {
+--     emailNotifications: Boolean,
+--     jobAlerts: Boolean,
+--     discussionUpdates: Boolean
+--   }
+-- }
+
+-- Jobs Collection
+-- {
+--   _id: ObjectId,
+--   title: String,
+--   description: String,
+--   company: String,
+--   location: String,
+--   type: String (enum: 'full-time', 'part-time', 'internship', 'contract', 'freelance'),
+--   salary: {
+--     min: Number,
+--     max: Number,
+--     currency: String,
+--     period: String (enum: 'hourly', 'monthly', 'yearly')
+--   },
+--   requirements: [String],
+--   tags: [String],
+--   applicationUrl: String,
+--   applicationEmail: String,
+--   postedBy: ObjectId (ref: Users),
+--   postedAt: Date,
+--   expiresAt: Date,
+--   isActive: Boolean,
+--   applicants: [{
+--     userId: ObjectId (ref: Users),
+--     appliedAt: Date,
+--     status: String (enum: 'applied', 'reviewed', 'interviewed', 'accepted', 'rejected')
+--   }],
+--   views: Number,
+--   saves: [ObjectId] (ref: Users)
+-- }
+
+-- Resources Collection
+-- {
+--   _id: ObjectId,
+--   title: String,
+--   description: String,
+--   type: String (enum: 'video', 'pdf', 'link', 'course', 'tutorial', 'research-paper'),
+--   url: String,
+--   fileUrl: String,
+--   author: String,
+--   duration: String,
+--   difficulty: String (enum: 'beginner', 'intermediate', 'advanced'),
+--   tags: [String],
+--   category: String,
+--   rating: {
+--     average: Number,
+--     count: Number,
+--     ratings: [{
+--       userId: ObjectId (ref: Users),
+--       rating: Number,
+--       review: String,
+--       createdAt: Date
+--     }]
+--   },
+--   postedBy: ObjectId (ref: Users),
+--   postedAt: Date,
+--   isApproved: Boolean,
+--   likes: [ObjectId] (ref: Users),
+--   downloads: Number,
+--   views: Number
+-- }
+
+-- Posts Collection (Forum Posts)
+-- {
+--   _id: ObjectId,
+--   title: String,
+--   content: String,
+--   type: String (enum: 'question', 'discussion', 'announcement', 'collaboration'),
+--   author: ObjectId (ref: Users),
+--   createdAt: Date,
+--   updatedAt: Date,
+--   tags: [String],
+--   category: String,
+--   isAnswered: Boolean,
+--   isPinned: Boolean,
+--   votes: {
+--     upvotes: [ObjectId] (ref: Users),
+--     downvotes: [ObjectId] (ref: Users),
+--     score: Number
+--   },
+--   replies: [{
+--     _id: ObjectId,
+--     content: String,
+--     author: ObjectId (ref: Users),
+--     createdAt: Date,
+--     updatedAt: Date,
+--     votes: {
+--       upvotes: [ObjectId] (ref: Users),
+--       downvotes: [ObjectId] (ref: Users),
+--       score: Number
+--     },
+--     isAccepted: Boolean,
+--     replies: [Object] // Nested replies
+--   }],
+--   views: Number,
+--   lastActivity: Date
+-- }
+
+-- Events Collection
+-- {
+--   _id: ObjectId,
+--   title: String,
+--   description: String,
+--   type: String (enum: 'webinar', 'workshop', 'conference', 'meetup', 'hackathon'),
+--   startDate: Date,
+--   endDate: Date,
+--   location: String,
+--   isVirtual: Boolean,
+--   meetingUrl: String,
+--   organizer: ObjectId (ref: Users),
+--   speakers: [ObjectId] (ref: Users),
+--   attendees: [{
+--     userId: ObjectId (ref: Users),
+--     registeredAt: Date,
+--     attended: Boolean
+--   }],
+--   maxAttendees: Number,
+--   tags: [String],
+--   isPublic: Boolean,
+--   createdAt: Date,
+--   updatedAt: Date
+-- }
+
+-- Notifications Collection
+-- {
+--   _id: ObjectId,
+--   recipient: ObjectId (ref: Users),
+--   type: String (enum: 'job_alert', 'reply', 'mention', 'like', 'follow', 'event', 'system'),
+--   title: String,
+--   message: String,
+--   data: Object, // Additional data specific to notification type
+--   isRead: Boolean,
+--   createdAt: Date,
+--   actionUrl: String
+-- }
+
+-- Messages Collection (for real-time chat)
+-- {
+--   _id: ObjectId,
+--   sender: ObjectId (ref: Users),
+--   recipient: ObjectId (ref: Users),
+--   content: String,
+--   type: String (enum: 'text', 'image', 'file'),
+--   isRead: Boolean,
+--   createdAt: Date,
+--   conversationId: String
+-- }
+
+-- Analytics Collection
+-- {
+--   _id: ObjectId,
+--   type: String (enum: 'page_view', 'job_view', 'resource_download', 'user_signup', 'post_view'),
+--   userId: ObjectId (ref: Users),
+--   resourceId: ObjectId, // Can reference any collection
+--   metadata: Object,
+--   timestamp: Date,
+--   sessionId: String,
+--   userAgent: String,
+--   ipAddress: String
+-- }
+
+-- Sample Data Insertion Queries (MongoDB format)
+-- These would be implemented in the Node.js backend
+
+-- Create indexes for better performance
+-- db.users.createIndex({ "email": 1 }, { unique: true })
+-- db.users.createIndex({ "role": 1 })
+-- db.jobs.createIndex({ "postedAt": -1 })
+-- db.jobs.createIndex
+-- db.jobs.createIndex({ "postedAt": -1 })
+-- db.jobs.createIndex({ "tags": 1 })
+-- db.jobs.createIndex({ "location": 1 })
+-- db.jobs.createIndex({ "type": 1 })
+-- db.resources.createIndex({ "postedAt": -1 })
+-- db.resources.createIndex({ "tags": 1 })
+-- db.resources.createIndex({ "category": 1 })
+-- db.posts.createIndex({ "createdAt": -1 })
+-- db.posts.createIndex({ "tags": 1 })
+-- db.posts.createIndex({ "author": 1 })
+-- db.notifications.createIndex({ "recipient": 1, "createdAt": -1 })
+-- db.messages.createIndex({ "conversationId": 1, "createdAt": -1 })
