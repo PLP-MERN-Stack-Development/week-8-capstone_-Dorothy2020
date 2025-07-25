@@ -3,7 +3,7 @@ This is the website link
 
 Project link: https://ml-connect.vercel.app/
 
-A comprehensive MERN stack platform connecting AI and Data Science learners, professionals, and researchers across Africa.
+ MERN stack platform connecting AI and Data Science learners, professionals, and researchers across Africa.
 
 ## 🚀 Features
 
