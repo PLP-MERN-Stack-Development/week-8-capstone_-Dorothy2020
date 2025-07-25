@@ -205,13 +205,3 @@ For support and questions:
 
 ---
 
-**Built with ❤️ for the AI community in Africa**
-\`\`\`
-
-This comprehensive AIConnect platform provides all the core features you outlined in your capstone project plan. The codebase includes:
-
-1. **Complete Frontend**: Landing page, authentication, dashboard with tabs for jobs/resources/forums
-2. **Backend API Structure**: User models, authentication middleware, and API endpoints
-3. **Database Schema**: MongoDB collections for users, jobs, resources, posts
-4. **Real-time Features**: Socket.io setup for live notifications
-5. **Professional UI**: Modern, responsive design with shadcn/ui components
